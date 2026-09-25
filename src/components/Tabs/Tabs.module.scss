@@ -1,0 +1,141 @@
+.tabs {
+  font-family: Inter, sans-serif;
+  width: 100%;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 8px 0;
+  }
+
+  &__tab {
+    min-height: 42px;
+    padding: 0 2px;
+    border: 0;
+    background: transparent;
+    color: var(--tabs-selected);
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid var(--tabs-selected);
+      border-radius: 4px;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  &__panel {
+    padding-top: 16px;
+  }
+
+  &--underline {
+    .tabs__tab {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 2px;
+        height: 3px;
+        width: 90%;
+        margin: 0 auto;
+        border-radius: 2px;
+        transition:
+          background 0.2s ease-in-out,
+          opacity 0.2s ease-in-out;
+        background: var(--tabs-selected);
+        opacity: 0;
+      }
+
+      &:hover::after,
+      &:active::after {
+        background: var(--tabs-border);
+        opacity: 1;
+      }
+
+      &[aria-selected="true"]::after {
+        background: var(--tabs-selected);
+        opacity: 1;
+      }
+    }
+  }
+
+  &--pill {
+    .tabs__list {
+      gap: 8px;
+    }
+
+    .tabs__tab {
+      border-radius: 999px;
+      padding: 12px 12px;
+      background: var(--tabs-neutral);
+      color: var(--tabs-selected);
+      border: 1px solid var(--tabs-border);
+
+      &:hover {
+        color: var(--tabs-selected);
+        background: var(--tabs-neutral-hover);
+        border: 1px solid var(--tabs-border-hover);
+      }
+
+      &:active {
+        color: var(--tabs-selected);
+        background: var(--tabs-neutral-active);
+        border: 1px solid var(--tabs-border);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--tabs-selected);
+        outline-offset: 2px;
+      }
+
+      &[aria-selected="true"] {
+        background: var(--tabs-selected);
+        color: var(--tabs-neutral);
+      }
+
+      &[aria-selected="true"]:hover {
+        background: var(--tabs-selected-hover);
+        color: var(--tabs-neutral);
+      }
+
+      &[aria-selected="true"]:active {
+        background: var(--tabs-selected-active);
+        color: var(--tabs-neutral);
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .tabs {
+    &__tab {
+      min-height: 50px;
+    }
+
+    &__list {
+      gap: 32px;
+      padding: 8px 0;
+    }
+
+    &--pill {
+      .tabs__list {
+        gap: 12px;
+      }
+
+      .tabs__tab {
+        padding: 16px 16px;
+      }
+    }
+  }
+}

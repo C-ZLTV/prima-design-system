@@ -1,6 +1,14 @@
 :root {
-  --background: #eee;
-  --content: #222;
+  --tabs-neutral: #ffffff;
+  --tabs-neutral-hover: #f6f6fa;
+  --tabs-neutral-active: #f1f1f7;
+
+  --tabs-selected: #1b2134;
+  --tabs-selected-hover: #343a4e;
+  --tabs-selected-active: #585d71;
+
+  --tabs-border: #d3d3dc;
+  --tabs-border-hover: #c4c5cf;
 }
 
 body {
@@ -10,5 +18,5 @@ body {
   font-size: 2rem;
   margin: 0;
   min-height: 100vh;
-  place-content: center;
+  padding: 2rem;
 }
