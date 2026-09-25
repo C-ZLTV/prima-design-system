@@ -9,6 +9,8 @@ import {
 
 import styles from "./Tabs.module.scss";
 
+import { Badge } from "./Badge";
+
 type TabsVariant = "underline" | "pill";
 
 type BadgeVariant = "neutral" | "positive" | "negative";
@@ -132,7 +134,7 @@ function TabsTab({ children, value, badge, disabled = false }: TabProps) {
     >
       {children}
 
-      {badge && <span>{badge.label}</span>}
+      {badge && <Badge variant={badge.variant}>{badge.label}</Badge>}
     </button>
   );
 }

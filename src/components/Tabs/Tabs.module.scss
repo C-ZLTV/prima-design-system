@@ -5,7 +5,7 @@
   &__list {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 24px; //L
     padding: 8px 0;
   }
 
@@ -72,12 +72,12 @@
 
   &--pill {
     .tabs__list {
-      gap: 8px;
+      gap: 8px; //2XS
     }
 
     .tabs__tab {
       border-radius: 999px;
-      padding: 12px 12px;
+      padding: 8px 12px; //XS
       background: var(--tabs-neutral);
       color: var(--tabs-selected);
       border: 1px solid var(--tabs-border);
@@ -115,6 +115,29 @@
       }
     }
   }
+
+  &__badge {
+    margin-left: 8px;
+
+    padding: 6px 12px;
+    border-radius: 999px;
+
+    font-size: 12px;
+    line-height: 150%;
+    font-weight: 700;
+
+    &--neutral {
+      background: var(--tabs-neutral-active);
+    }
+
+    &--positive {
+      background: var(--tabs-positive);
+    }
+
+    &--negative {
+      background: var(--tabs-negative);
+    }
+  }
 }
 
 @media (min-width: 769px) {
@@ -124,18 +147,22 @@
     }
 
     &__list {
-      gap: 32px;
+      gap: 32px; //XL
       padding: 8px 0;
     }
 
     &--pill {
       .tabs__list {
-        gap: 12px;
+        gap: 12px; //XS
       }
 
       .tabs__tab {
-        padding: 16px 16px;
+        padding: 0px 16px; //S
       }
+    }
+
+    &__badge {
+      margin-left: 12px;
     }
   }
 }

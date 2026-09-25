@@ -12,13 +12,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <main>
-      <Tabs defaultValue="emails" variant="underline">
+      <Tabs defaultValue="emails" variant="pill">
         <Tabs.List>
           <Tabs.Tab value="emails">Emails</Tabs.Tab>
           <Tabs.Tab
             value="files"
             badge={{
-              label: "warning",
+              label: "Warning",
               variant: "negative",
             }}
           >
