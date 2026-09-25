@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import styles from "./Tabs.module.scss";
 
-type BadgeVariant = "neutral" | "positive" | "negative";
+export type BadgeVariant = "neutral" | "positive" | "negative";
 
 interface BadgeProps {
   children: ReactNode;

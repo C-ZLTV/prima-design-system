@@ -9,17 +9,31 @@ import {
 
 import styles from "./Tabs.module.scss";
 
-import { Badge } from "./Badge";
+import { Badge, type BadgeVariant } from "./Badge";
 
 type TabsVariant = "underline" | "pill";
 
-type BadgeVariant = "neutral" | "positive" | "negative";
-
-interface TabsProps {
+interface TabsCommonProps {
   children: ReactNode;
   variant?: TabsVariant;
+}
+
+interface ControlledTabsProps extends TabsCommonProps {
+  value: string;
+  onChange: (value: string) => void;
+  defaultValue?: never;
+}
+
+interface UncontrolledTabsProps extends TabsCommonProps {
   defaultValue: string;
+  value?: never;
   onChange?: (value: string) => void;
+}
+
+type TabsProps = ControlledTabsProps | UncontrolledTabsProps;
+
+function isControlledTabs(props: TabsProps): props is ControlledTabsProps {
+  return props.value !== undefined;
 }
 
 interface TabProps {
@@ -76,8 +90,8 @@ function TabsTab({ children, value, badge, disabled = false }: TabProps) {
 
   const selected = activeValue === value;
 
-  const tabId = `${baseId}-tab-${value}`;
-  const panelId = `${baseId}-panel-${value}`;
+  const tabId = `${baseId}-tab-${encodeURIComponent(value)}`;
+  const panelId = `${baseId}-panel-${encodeURIComponent(value)}`;
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     const tabList = event.currentTarget.closest('[role="tablist"]');
@@ -100,12 +114,25 @@ function TabsTab({ children, value, badge, disabled = false }: TabProps) {
 
     let nextIndex: number;
 
-    if (event.key === "ArrowRight") {
-      nextIndex = (currentIndex + 1) % tabs.length;
-    } else if (event.key === "ArrowLeft") {
-      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-    } else {
-      return;
+    switch (event.key) {
+      case "ArrowRight":
+        nextIndex = (currentIndex + 1) % tabs.length;
+        break;
+
+      case "ArrowLeft":
+        nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        break;
+
+      case "Home":
+        nextIndex = 0;
+        break;
+
+      case "End":
+        nextIndex = tabs.length - 1;
+        break;
+
+      default:
+        return;
     }
 
     const nextTab = tabs[nextIndex];
@@ -115,7 +142,6 @@ function TabsTab({ children, value, badge, disabled = false }: TabProps) {
     }
 
     event.preventDefault();
-
     nextTab.focus();
   };
 
@@ -144,8 +170,8 @@ function TabsPanel({ children, value }: TabPanelProps) {
 
   const selected = activeValue === value;
 
-  const tabId = `${baseId}-tab-${value}`;
-  const panelId = `${baseId}-panel-${value}`;
+  const tabId = `${baseId}-tab-${encodeURIComponent(value)}`;
+  const panelId = `${baseId}-panel-${encodeURIComponent(value)}`;
 
   return (
     <div
@@ -160,21 +186,28 @@ function TabsPanel({ children, value }: TabPanelProps) {
   );
 }
 
-function TabsBase({
-  children,
-  variant = "underline",
-  defaultValue,
-  onChange,
-}: TabsProps) {
-  const [value, setValue] = useState(defaultValue);
+function TabsBase(props: TabsProps) {
+  const { children, variant = "underline" } = props;
+
   const baseId = useId();
 
+  const isControlled = isControlledTabs(props);
+
+  const [internalValue, setInternalValue] = useState<string>(
+    isControlled ? props.value : props.defaultValue,
+  );
+
+  const value = isControlled ? props.value : internalValue;
+
   const handleChange = (nextValue: string) => {
-    setValue(nextValue);
-    onChange?.(nextValue);
+    if (!isControlled) {
+      setInternalValue(nextValue);
+    }
+
+    props.onChange?.(nextValue);
   };
 
-  const contextValue = {
+  const contextValue: TabsContextValue = {
     value,
     onChange: handleChange,
     baseId,
