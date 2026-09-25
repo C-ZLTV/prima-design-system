@@ -14,8 +14,7 @@ type BadgeVariant = "neutral" | "positive" | "negative";
 interface TabsProps {
   children: ReactNode;
   variant?: TabsVariant;
-  defaultValue?: string;
-  value?: string;
+  defaultValue: string;
   onChange?: (value: string) => void;
 }
 
@@ -35,7 +34,7 @@ interface TabPanelProps {
 }
 
 interface TabsContextValue {
-  value: string | undefined;
+  value: string;
   variant: TabsVariant;
   onChange: (value: string) => void;
   baseId: string;
@@ -80,12 +79,11 @@ function TabsTab({ children, value, badge, disabled = false }: TabProps) {
       return;
     }
 
-    const tabs =
-      Array.from(
-        tabList.querySelectorAll<HTMLButtonElement>(
-          '[role="tab"]:not(:disabled)',
-        ),
-      ) ?? [];
+    const tabs = Array.from(
+      tabList.querySelectorAll<HTMLButtonElement>(
+        '[role="tab"]:not(:disabled)',
+      ),
+    );
 
     const currentIndex = tabs.indexOf(event.currentTarget);
 
@@ -93,18 +91,15 @@ function TabsTab({ children, value, badge, disabled = false }: TabProps) {
       return;
     }
 
-    let nextIndex: number | undefined;
+    let nextIndex: number;
 
     if (event.key === "ArrowRight") {
-      nextIndex = currentIndex + 1;
+      nextIndex = (currentIndex + 1) % tabs.length;
     } else if (event.key === "ArrowLeft") {
-      nextIndex = currentIndex - 1;
+      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
     } else {
-      nextIndex = undefined;
       return;
     }
-
-    event.preventDefault();
 
     const nextTab = tabs[nextIndex];
 
@@ -112,8 +107,9 @@ function TabsTab({ children, value, badge, disabled = false }: TabProps) {
       return;
     }
 
+    event.preventDefault();
+
     const nextValue = nextTab.getAttribute("data-value");
-    console.log("nextValue", nextValue);
 
     if (!nextValue) {
       return;
