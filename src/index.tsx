@@ -27,8 +27,8 @@ root.render(
 
           <Tabs.Tab value="documents">Edits</Tabs.Tab>
 
-          <Tabs.Tab value="Edits">Dashboard</Tabs.Tab>
-          <Tabs.Tab value="Edits">Messages</Tabs.Tab>
+          <Tabs.Tab value="dashboard">Dashboard</Tabs.Tab>
+          <Tabs.Tab value="messages">Messages</Tabs.Tab>
         </Tabs.List>
 
         <Tabs.Panel value="emails">
@@ -44,7 +44,7 @@ root.render(
           <p>Edits content</p>
         </Tabs.Panel>
 
-        <Tabs.Panel value="warning">
+        <Tabs.Panel value="dashboard">
           <p>Dashboard content</p>
         </Tabs.Panel>
         <Tabs.Panel value="messages">

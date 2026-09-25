@@ -7,6 +7,8 @@ import {
   type ReactNode,
 } from "react";
 
+import styles from "./Tabs.module.scss";
+
 type TabsVariant = "underline" | "pill";
 
 type BadgeVariant = "neutral" | "positive" | "negative";
@@ -35,7 +37,6 @@ interface TabPanelProps {
 
 interface TabsContextValue {
   value: string;
-  variant: TabsVariant;
   onChange: (value: string) => void;
   baseId: string;
 }
@@ -58,7 +59,11 @@ interface TabsListProps {
 
 function TabsList({ children }: TabsListProps) {
   return (
-    <div role="tablist" aria-orientation="horizontal">
+    <div
+      role="tablist"
+      aria-orientation="horizontal"
+      className={styles.tabs__list}
+    >
       {children}
     </div>
   );
@@ -109,13 +114,6 @@ function TabsTab({ children, value, badge, disabled = false }: TabProps) {
 
     event.preventDefault();
 
-    const nextValue = nextTab.getAttribute("data-value");
-
-    if (!nextValue) {
-      return;
-    }
-
-    onChange(nextValue);
     nextTab.focus();
   };
 
@@ -128,7 +126,7 @@ function TabsTab({ children, value, badge, disabled = false }: TabProps) {
       aria-controls={panelId}
       tabIndex={selected ? 0 : -1}
       disabled={disabled}
-      data-value={value}
+      className={styles.tabs__tab}
       onClick={() => onChange(value)}
       onKeyDown={handleKeyDown}
     >
@@ -153,6 +151,7 @@ function TabsPanel({ children, value }: TabPanelProps) {
       role="tabpanel"
       aria-labelledby={tabId}
       hidden={!selected}
+      className={styles.tabs__panel}
     >
       {children}
     </div>
@@ -175,13 +174,16 @@ function TabsBase({
 
   const contextValue = {
     value,
-    variant,
     onChange: handleChange,
     baseId,
   };
 
   return (
-    <TabsContext.Provider value={contextValue}>{children}</TabsContext.Provider>
+    <TabsContext.Provider value={contextValue}>
+      <div className={`${styles.tabs} ${styles[`tabs--${variant}`]}`}>
+        {children}
+      </div>
+    </TabsContext.Provider>
   );
 }
 
