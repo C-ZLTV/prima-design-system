@@ -3,10 +3,17 @@
   width: 100%;
 
   &__list {
+    overflow-x: scroll;
     display: flex;
     align-items: center;
     gap: 24px; //L
-    padding: 8px 0;
+    padding: 8px 4px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  &__list::-webkit-scrollbar {
+    display: none;
   }
 
   &__tab {
@@ -118,10 +125,10 @@
 
   &__badge {
     margin-left: 8px;
-
     padding: 6px 12px;
     border-radius: 999px;
 
+    color: var(--tabs-selected);
     font-size: 12px;
     line-height: 150%;
     font-weight: 700;
@@ -148,7 +155,6 @@
 
     &__list {
       gap: 32px; //XL
-      padding: 8px 0;
     }
 
     &--pill {
