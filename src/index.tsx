@@ -5,9 +5,7 @@ import { Tabs } from "./components/Tabs/Tabs";
 
 import "./index.css";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <React.StrictMode>
@@ -37,7 +35,7 @@ root.render(
 
         <Tabs.Panel value="files">
           <p>Files content</p>
-          <button>Click me</button>
+          <button type="button">Click me</button>
         </Tabs.Panel>
 
         <Tabs.Panel value="documents">

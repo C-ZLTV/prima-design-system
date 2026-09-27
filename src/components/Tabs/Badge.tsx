@@ -11,10 +11,6 @@ interface BadgeProps {
 
 export function Badge({ children, variant }: BadgeProps) {
   return (
-    <span
-      className={`${styles.tabs__badge} ${styles[`tabs__badge--${variant}`]}`}
-    >
-      {children}
-    </span>
+    <span className={`${styles.tabs__badge} ${styles[`tabs__badge--${variant}`]}`}>{children}</span>
   );
 }

@@ -124,6 +124,7 @@ function PanelContent({ title }: { title: string }) {
         ))}
       </div>
       <button
+        type="button"
         style={{
           alignSelf: "flex-end",
           padding: "10px 18px",
@@ -165,33 +166,20 @@ export const Playground: Story = {
       };
     };
 
-    const isDisabled = (tabValue: TabValue) =>
-      args.disabledTabs.includes(tabValue);
+    const isDisabled = (tabValue: TabValue) => args.disabledTabs.includes(tabValue);
 
     return (
       <Tabs defaultValue={args.defaultValue} variant={args.variant}>
         <Tabs.List>
-          <Tabs.Tab
-            value="emails"
-            badge={getBadge("emails")}
-            disabled={isDisabled("emails")}
-          >
+          <Tabs.Tab value="emails" badge={getBadge("emails")} disabled={isDisabled("emails")}>
             Emails
           </Tabs.Tab>
 
-          <Tabs.Tab
-            value="files"
-            badge={getBadge("files")}
-            disabled={isDisabled("files")}
-          >
+          <Tabs.Tab value="files" badge={getBadge("files")} disabled={isDisabled("files")}>
             Files
           </Tabs.Tab>
 
-          <Tabs.Tab
-            value="edits"
-            badge={getBadge("edits")}
-            disabled={isDisabled("edits")}
-          >
+          <Tabs.Tab value="edits" badge={getBadge("edits")} disabled={isDisabled("edits")}>
             Edits
           </Tabs.Tab>
 
@@ -203,11 +191,7 @@ export const Playground: Story = {
             Dashboard
           </Tabs.Tab>
 
-          <Tabs.Tab
-            value="messages"
-            badge={getBadge("messages")}
-            disabled={isDisabled("messages")}
-          >
+          <Tabs.Tab value="messages" badge={getBadge("messages")} disabled={isDisabled("messages")}>
             Messages
           </Tabs.Tab>
         </Tabs.List>

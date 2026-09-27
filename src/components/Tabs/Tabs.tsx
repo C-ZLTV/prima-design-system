@@ -1,15 +1,13 @@
 import {
   createContext,
+  type KeyboardEvent,
+  type ReactNode,
   useContext,
   useId,
   useState,
-  type KeyboardEvent,
-  type ReactNode,
 } from "react";
-
-import styles from "./Tabs.module.scss";
-
 import { Badge, type BadgeVariant } from "./Badge";
+import styles from "./Tabs.module.scss";
 
 type TabsVariant = "underline" | "pill";
 
@@ -75,11 +73,7 @@ interface TabsListProps {
 
 function TabsList({ children }: TabsListProps) {
   return (
-    <div
-      role="tablist"
-      aria-orientation="horizontal"
-      className={styles.tabs__list}
-    >
+    <div role="tablist" aria-orientation="horizontal" className={styles.tabs__list}>
       {children}
     </div>
   );
@@ -101,9 +95,7 @@ function TabsTab({ children, value, badge, disabled = false }: TabProps) {
     }
 
     const tabs = Array.from(
-      tabList.querySelectorAll<HTMLButtonElement>(
-        '[role="tab"]:not(:disabled)',
-      ),
+      tabList.querySelectorAll<HTMLButtonElement>('[role="tab"]:not(:disabled)'),
     );
 
     const currentIndex = tabs.indexOf(event.currentTarget);
@@ -215,9 +207,7 @@ function TabsBase(props: TabsProps) {
 
   return (
     <TabsContext.Provider value={contextValue}>
-      <div className={`${styles.tabs} ${styles[`tabs--${variant}`]}`}>
-        {children}
-      </div>
+      <div className={`${styles.tabs} ${styles[`tabs--${variant}`]}`}>{children}</div>
     </TabsContext.Provider>
   );
 }
